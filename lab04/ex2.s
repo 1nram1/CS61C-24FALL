@@ -4,6 +4,9 @@ exp: .word 10
 
 .text
 main:
+    
+
+
     # load the value of n into a0
     la a0 n
     lw a0 0(a0)
@@ -31,8 +34,10 @@ main:
 # the return value should be the result of a0^a1
 #     where ^ is the exponent operator, not XOR
 ex2:
-    # Note: Add code BELOW without altering existing lines.
+    # Note: Add code BELOW without altering existing lines
+    addi sp, sp, -8
     sw s0 0(sp)
+    sw ra 4(sp)
 
     # return 1 if a1 == 0
     beq a1 x0 ex2_zero_case
@@ -45,7 +50,7 @@ ex2:
 
     mul a0 a0 s0  # multiply ex2(a0, a1-1) by s0
                   # (which contains the value of a0)
-
+    
     j ex2_end
 
 ex2_zero_case:
@@ -53,5 +58,6 @@ ex2_zero_case:
 
 ex2_end:
     lw s0 0(sp)
-
+    lw ra, 4(sp)
+    addi sp, sp, 8
     jr ra
